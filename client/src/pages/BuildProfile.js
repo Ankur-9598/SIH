@@ -68,15 +68,6 @@ const validate = (userProfileData) => {
     return errors;
 };
 
-const getFormattedDate = date => {
-    const newDate = new Date(date);
-    const dd = String(newDate.getDate()).padStart(2, '0');
-    const mm = String(newDate.getMonth() + 1).padStart(2, '0');
-    const yy = newDate.getFullYear();
-
-    return `${dd}-${mm}-${yy}`;
-}
-
 
 const BuildProfile = () => {
     const { user } = useAuth();
