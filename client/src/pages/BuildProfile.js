@@ -76,7 +76,7 @@ const BuildProfile = () => {
         lastName: user.lastName,
         dateOfBirth: new Date(user.dateOfBirth),
         qualification: user.qualification,
-        pinCode: user.pincode,
+        pinCode: user.pinCode,
         state: user.state
     });
     const [formErrors, setFormErrors] = useState({});
@@ -102,7 +102,7 @@ const BuildProfile = () => {
             const userData = {
                 firstName: userProfileData.firstName,
                 lastName: userProfileData.lastName,
-                pincode: userProfileData.pinCode,
+                pinCode: userProfileData.pinCode,
                 qualification: userProfileData.qualification,
                 dateOfBirth: format(userProfileData.dateOfBirth, "dd-MM-yyyy")
             }
@@ -111,7 +111,12 @@ const BuildProfile = () => {
             if(response.error) {
                 alert(response.message);
             } else {
-                alert("Profile Updated");
+                setUserProfileData({
+                    ...userProfileData,
+                    state: response.data.state,
+                    pinCode: response.data.pinCode
+                });
+                alert("Profile Updated ");
             }
 
         }

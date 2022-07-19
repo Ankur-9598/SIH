@@ -78,9 +78,9 @@ const getUserController = (req, res) => {
 
 const buildProfileController = async (req, res) => {
     try {
-        const { firstName, lastName, dateOfBirth, qualification, pincode } = req.body;
+        const { firstName, lastName, dateOfBirth, qualification, pinCode } = req.body;
 
-        if (!firstName || !lastName || !dateOfBirth || !qualification || !pincode) {
+        if (!firstName || !lastName || !dateOfBirth || !qualification || !pinCode) {
             return res.status(422).json({ error: "please add all the fields" });
         }
 
@@ -90,7 +90,7 @@ const buildProfileController = async (req, res) => {
             return res.status(403).json({ error: "registered user dont have access to build profile" })
         }
 
-        const pincodeData = await axios.get(`https://api.postalpincode.in/pincode/${pincode}`)
+        const pincodeData = await axios.get(`https://api.postalpincode.in/pincode/${pinCode}`)
 
         const stateName = pincodeData.data[0].PostOffice[0].State;
 
@@ -112,7 +112,7 @@ const buildProfileController = async (req, res) => {
         savedUser.lastName = lastName;
         savedUser.dateOfBirth = dateOfBirth;
         savedUser.qualification = qualification;
-        savedUser.pincode = pincode;
+        savedUser.pinCode = pinCode;
         savedUser.state = stateName
 
         savedUser.save((err) => {
@@ -120,7 +120,7 @@ const buildProfileController = async (req, res) => {
                 return res.status(500).json({ message: "Mongo Error" })
             }
         });
-        res.status(201).json({ message: "Profile Updated!" });
+        res.status(201).json({ message: "Profile Updated!", data: savedUser });
 
     } catch (err) {
         res.status(500).json(err);

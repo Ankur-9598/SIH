@@ -45,4 +45,12 @@ const userSchema = new mongoose.Schema({
     }
 )
 
+// Discard password and createAt field before sending model data to client..
+userSchema.methods.toJSON = function() {
+    var obj = this.toObject();
+    delete obj.password;
+    delete obj.createdAt;
+    return obj;
+}
+
 module.exports = mongoose.model('User', userSchema)
